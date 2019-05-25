@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './components/App';
+import NavButtons from './components/NavButtons';
 
 render(
-    <App />,
+    <NavButtons />,
     document.getElementById('app')
 );
