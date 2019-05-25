@@ -1,5 +1,7 @@
 import React from 'react';
+import { render } from 'react-dom';
 import NavButton from './NavButton';
+import BeginStory from './BeginStory';
 
 class NavButtons extends React.Component {
     constructor(props) {
@@ -11,7 +13,10 @@ class NavButtons extends React.Component {
     }
 
     beginStory() {
-        console.log("Begin Story")
+        render(
+            <BeginStory />,
+            document.getElementById('app')
+        );
     }
 
     continueStory() {
