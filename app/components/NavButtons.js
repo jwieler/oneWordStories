@@ -1,25 +1,30 @@
 import React from 'react';
+import { render } from 'react-dom';
 import NavButton from './NavButton';
+import ViewStories from './ViewStories';
 
 class NavButtons extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
 
-        this.beginStory = this.beginStory.bind(this)
-        this.continueStory = this.continueStory.bind(this)
-        this.viewStories = this.viewStories.bind(this)
+        this.beginStory = this.beginStory.bind(this);
+        this.continueStory = this.continueStory.bind(this);
+        this.viewStories = this.viewStories.bind(this);
     }
 
     beginStory() {
-        console.log("Begin Story")
+        console.log("Begin Story");
     }
 
     continueStory() {
-        console.log("Continue Story")
+        console.log("Continue Story");
     }
 
     viewStories() {
-        console.log("View Stories")
+        render(
+            <ViewStories />,
+            document.getElementById('app')
+        );
     }
 
     render() {
