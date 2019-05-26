@@ -1,7 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 import NavButton from './NavButton';
+import NavButtons from './NavButtons';
 import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
+
 
 class BeginStory extends React.Component {
     constructor(props) {
@@ -15,6 +17,8 @@ class BeginStory extends React.Component {
         this.keyUpHandler = this.keyUpHandler.bind(this);
         this.deleteLastWord = this.deleteLastWord.bind(this);
         this.pastePrevent = this.pastePrevent.bind(this);
+        this.navButtons = this.navButtons.bind(this);
+        this.connect = this.connect.bind(this);
     }
 
     pastePrevent(e) {
@@ -22,39 +26,34 @@ class BeginStory extends React.Component {
     }
 
     enter() {
-        var penis = document.getElementById('inputField').value;
-        console.log(penis);
+        var input = document.getElementById('inputField').value;
         this.setState ({
             numWords: this.state.numWords + 1,
-            word: this.state.word += penis + " "
+            word: this.state.word += input + " "
         });
         document.getElementById('inputField').value = null;
     }
 
     keyDownHandler(e) { 
-        console.log(document.getElementById('inputField').value.charCodeAt(0));
-        console.log(isAllWhitespace(document.getElementById("inputField").value));
         if(document.getElementById("inputField").value == "" || isAllWhitespace(document.getElementById("inputField").value) || document.getElementById("inputField").value == " ")
         {
             return;
         }
         if(e.key == 'Enter')
         {
-            var penis = document.getElementById('inputField').value;
-            console.log(penis);
+            var input = document.getElementById('inputField').value;
             this.setState ({
                 numWords: this.state.numWords + 1,
-                word: this.state.word += penis + ' ',
+                word: this.state.word += input + ' ',
             });  
             document.getElementById('inputField').value = "";
         }
         else if (e.key == ' ' && !isAllWhitespace(document.getElementById("inputField").value))
         {
-            var penis = document.getElementById('inputField').value;
-            console.log(penis);
+            var input = document.getElementById('inputField').value;
             this.setState ({
                 numWords: this.state.numWords + 1,
-                word: this.state.word += penis + ' ',
+                word: this.state.word += input + ' ',
             });  
             document.getElementById('inputField').value = "";
             
@@ -70,8 +69,6 @@ class BeginStory extends React.Component {
     deleteLastWord() {
         var story = document.getElementById("story").innerHTML;
         var words = story.split(" ");  
-        console.log(words[words.length - 2]); 
-        console.log(words);
         var text = "";
         for(var i = 0; i < words.length - 2; i++)
         {
@@ -83,6 +80,17 @@ class BeginStory extends React.Component {
         });
     }
 
+    navButtons() {
+        render(
+            <NavButtons />,
+            document.getElementById('app')
+        );
+    }
+
+    connect() {
+
+    }
+
     render() {
         var text = '';
         text = this.state.word;
@@ -90,10 +98,13 @@ class BeginStory extends React.Component {
             <div>
                
                 <div id="story" className="storyText">{text}</div>
-                <input id="inputField" type="text" onKeyDown={this.keyDownHandler} onKeyUp={this.keyUpHandler} onPaste={this.pastePrevent}></input>
+                <input id="inputField" type="text" placeholder="Type in a word..." onKeyDown={this.keyDownHandler} onKeyUp={this.keyUpHandler} onPaste={this.pastePrevent}></input>
                 <NavButton onClick={this.enter} text="Enter"/>
                 <br></br>
                 <NavButton onClick={this.deleteLastWord} text="Delete the previous word"/>
+                <hr></hr>
+                <NavButton onClick={this.navButtons} text="Back"/>
+                <NavButton onClick={this.connect} text="connect"/>
             </div>
         );
     }
