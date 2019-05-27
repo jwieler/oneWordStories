@@ -1,9 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import NavButton from './NavButton';
-import NavButtons from './NavButtons';
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
-
+import HomePage from './HomePage';
 
 class BeginStory extends React.Component {
     constructor(props) {
@@ -80,15 +78,11 @@ class BeginStory extends React.Component {
         });
     }
 
-    navButtons() {
+    back() {
         render(
-            <NavButtons />,
+            <HomePage />,
             document.getElementById('app')
         );
-    }
-
-    connect() {
-
     }
 
     render() {
@@ -103,8 +97,7 @@ class BeginStory extends React.Component {
                 <br></br>
                 <NavButton onClick={this.deleteLastWord} text="Delete the previous word"/>
                 <hr></hr>
-                <NavButton onClick={this.navButtons} text="Back"/>
-                <NavButton onClick={this.connect} text="connect"/>
+                <NavButton onClick={this.back} text="Back"/>
             </div>
         );
     }
