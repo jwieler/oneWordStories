@@ -85,10 +85,6 @@ class BeginStory extends React.Component {
         );
     }
 
-    connect() {
-
-    }
-
     enter() {
         var penis = document.getElementById('inputField').value;
         console.log(penis);
@@ -135,7 +131,6 @@ class BeginStory extends React.Component {
                 <NavButton onClick={this.deleteLastWord} text="Delete the previous word"/>
                 <hr></hr>
                 <NavButton onClick={this.back} text="Back"/>
-                <NavButton onClick={this.connect} text="connect"/>
                 <div className="storyText">{text}</div>
                 <input id="inputField" type="text" onKeyDown={this.keyDownHandler}></input>
                 <NavButton onClick={this.enter} text="Enter"/>
