@@ -130,11 +130,6 @@ class BeginStory extends React.Component {
                 <NavButton onClick={this.deleteLastWord} text="Delete the previous word"/>
                 <hr></hr>
                 <NavButton onClick={this.back} text="Back"/>
-                <div className="storyText">{text}</div>
-                <input id="inputField" type="text" onKeyDown={this.keyDownHandler}></input>
-                <NavButton onClick={this.enter} text="Enter"/>
-                <br></br>
-                <NavButton onClick={this.deleteLastWord} text="Delete the previous word"/>
             </div>
         );
     }
