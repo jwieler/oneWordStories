@@ -1,10 +1,17 @@
 import React from 'react';
 import NavButtons from './NavButtons';
 import Login from './Login';
+import collectionRef from '../../app';
 
 class HomePage extends React.Component {
     componentDidMount() {
         var search = location.search.substring(1);
+
+        collectionRef.add({
+            title: "Example title",
+            story: "Example story",
+            lastUpdatedAt: Date.now()
+        });
 
         if (search) {
             var urlHash = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}',

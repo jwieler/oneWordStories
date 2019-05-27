@@ -16,10 +16,4 @@ if (!firebase.apps.length) {
 var firestore = firebase.firestore();
 const collectionRef = firestore.collection("stories");
 
-var query = collectionRef.orderBy("lastUpdatedAt", "desc");
-
-query.get().then(stories => {
-    stories.forEach(story => {
-        console.log(story.data());
-    });
-});
+export default collectionRef;
