@@ -16,7 +16,6 @@ class BeginStory extends React.Component {
         this.deleteLastWord = this.deleteLastWord.bind(this);
         this.pastePrevent = this.pastePrevent.bind(this);
         this.back = this.back.bind(this);
-        this.connect = this.connect.bind(this);
     }
 
     pastePrevent(e) {
