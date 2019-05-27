@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
-import NavButtons from './components/NavButtons';
+import HomePage from './components/HomePage';
 
 render(
-    <NavButtons />,
+    <HomePage />,
     document.getElementById('app')
 );
