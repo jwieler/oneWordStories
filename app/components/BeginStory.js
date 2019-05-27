@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import NavButton from './NavButton';
 import HomePage from './HomePage';
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
 class BeginStory extends React.Component {
     constructor(props) {
@@ -88,7 +87,6 @@ class BeginStory extends React.Component {
 
     connect() {
 
-    }
     }
 
     enter() {
