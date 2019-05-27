@@ -15,8 +15,7 @@ class BeginStory extends React.Component {
         this.keyUpHandler = this.keyUpHandler.bind(this);
         this.deleteLastWord = this.deleteLastWord.bind(this);
         this.pastePrevent = this.pastePrevent.bind(this);
-        this.navButtons = this.navButtons.bind(this);
-        this.connect = this.connect.bind(this);
+        this.back = this.back.bind(this);
     }
 
     pastePrevent(e) {
