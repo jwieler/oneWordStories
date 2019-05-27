@@ -1,7 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 import NavButton from './NavButton';
-import HomePage from './HomePage';
+import NavButtons from './NavButtons';
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
+
 
 class BeginStory extends React.Component {
     constructor(props) {
@@ -15,7 +17,8 @@ class BeginStory extends React.Component {
         this.keyUpHandler = this.keyUpHandler.bind(this);
         this.deleteLastWord = this.deleteLastWord.bind(this);
         this.pastePrevent = this.pastePrevent.bind(this);
-        this.back = this.back.bind(this);
+        this.navButtons = this.navButtons.bind(this);
+        this.connect = this.connect.bind(this);
     }
 
     pastePrevent(e) {
@@ -77,45 +80,15 @@ class BeginStory extends React.Component {
         });
     }
 
-    back() {
+    navButtons() {
         render(
-            <HomePage />,
+            <NavButtons />,
             document.getElementById('app')
         );
     }
 
-    enter() {
-        var penis = document.getElementById('inputField').value;
-        console.log(penis);
-        this.setState ({
-            numWords: this.state.numWords + 1,
-            word: this.state.word += penis + " "
-        });
-    }
+    connect() {
 
-    changeHandler() {
-        var penis = document.getElementById('inputField').value;
-        if(penis[penis.length - 1] == ' ')
-        {
-            console.log("Is a space");
-        }
-        else 
-        {
-            console.log("Gangnam style, not a space");
-        }
-    }
-
-    keyDownHandler(e) {
-        if(e.key == 'Enter' || e.key == ' ')
-        {
-            var penis = document.getElementById('inputField').value;
-            console.log(penis);
-            this.setState ({
-                numWords: this.state.numWords + 1,
-                word: this.state.word += penis + " "
-            });  
-            document.getElementById('inputField').value = null;
-        }
     }
 
     render() {
@@ -123,13 +96,15 @@ class BeginStory extends React.Component {
         text = this.state.word;
         return (
             <div>
+               
                 <div id="story" className="storyText">{text}</div>
                 <input id="inputField" type="text" placeholder="Type in a word..." onKeyDown={this.keyDownHandler} onKeyUp={this.keyUpHandler} onPaste={this.pastePrevent}></input>
                 <NavButton onClick={this.enter} text="Enter"/>
                 <br></br>
                 <NavButton onClick={this.deleteLastWord} text="Delete the previous word"/>
                 <hr></hr>
-                <NavButton onClick={this.back} text="Back"/>
+                <NavButton onClick={this.navButtons} text="Back"/>
+                <NavButton onClick={this.connect} text="connect"/>
             </div>
         );
     }
@@ -150,5 +125,6 @@ function isAllWhitespace(word)
    
       return false;
 }
+
 
 export default BeginStory;
