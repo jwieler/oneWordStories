@@ -18,10 +18,10 @@ class WordInput extends React.Component {
             return;
         }
         if (e.key == 'Enter') {
-            this.props.onEnter(document.getElementById('inputField').value);
+            this.props.onEnter();
         }
         else if (e.key == ' ' && !isAllWhitespace(document.getElementById("inputField").value)) {
-            this.props.onEnter(document.getElementById('inputField').value);
+            this.props.onEnter();
         }
     }
 

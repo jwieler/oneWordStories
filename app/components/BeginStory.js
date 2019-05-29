@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import NavButton from './NavButton';
 import HomePage from './HomePage';
 import WordInput from './WordInput';
+import collectionRef from '../../app';
 
 class BeginStory extends React.Component {
     constructor(props) {
@@ -17,12 +18,19 @@ class BeginStory extends React.Component {
         this.back = this.back.bind(this);
     }
 
-    enter(word) {
-        this.setState ({
-            numWords: this.state.numWords + 1,
-            word: this.state.word += word + " "
+    enter() {
+        var title = document.getElementById('titleField').value;
+
+        var date = Date.now();
+
+        collectionRef.add({
+            title: title,
+            story: document.getElementById('inputField').value,
+            lastUpdatedAt: date
         });
-        document.getElementById('inputField').value = null;
+        document.getElementById('inputField').disabled = true;
+        document.getElementById('titleField').disabled = true;
+        document.getElementById('submit').disabled = true;
     }
 
     back() {
@@ -37,9 +45,10 @@ class BeginStory extends React.Component {
         text = this.state.word;
         return (
             <div>
+                <input id="titleField" type="text" placeholder="Enter the title of the story..." ></input>
                 <div id="story" className="storyText">{text}</div>
                 <WordInput onEnter={this.enter} />
-                <NavButton onClick={this.enter} text="Enter"/>
+                <button id="submit" onClick={this.enter}>Enter</button>
                 <br></br>
                 <NavButton onClick={this.deleteLastWord} text="Delete the previous word"/>
                 <hr></hr>

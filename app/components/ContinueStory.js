@@ -16,6 +16,7 @@ class ContinueStory extends React.Component {
             title: ""
         };
 
+        this.enter = this.enter.bind(this);
         this.back = this.back.bind(this);
     }
 
