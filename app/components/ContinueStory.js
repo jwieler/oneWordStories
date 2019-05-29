@@ -1,0 +1,63 @@
+import React from 'react';
+import { render } from 'react-dom';
+import NavButton from './NavButton';
+import WordInput from './WordInput';
+import HomePage from './HomePage';
+import collectionRef from '../../app';
+
+class ContinueStory extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            id: "",
+            story: "",
+            lastUpdatedAt: "",
+            title: ""
+        };
+
+        this.back = this.back.bind(this);
+    }
+
+    componentDidMount() {
+        collectionRef.orderBy("lastUpdatedAt").get().then(querySnapshot => {
+            this.setState({
+                id: querySnapshot.docs[0].ref.id,
+                story: querySnapshot.docs[0].data().story,
+                title: querySnapshot.docs[0].data().title,
+                lastUpdatedAt: querySnapshot.docs[0].data().lastUpdatedAt
+            });
+
+            collectionRef.doc(this.state.id).set({
+                story: querySnapshot.docs[0].data().story,
+                title: querySnapshot.docs[0].data().title,
+                lastUpdatedAt: Date.now()
+            });
+        });
+    }
+
+    enter(word) {
+        console.log(word);
+        document.getElementById('inputField').value = null;
+    }
+
+    back() {
+        render(
+            <HomePage />,
+            document.getElementById('app')
+        );
+    }
+
+    render() {
+        return (
+            <div>
+                <NavButton onClick={this.back} text="Back" />
+                <h1>{this.state.title}</h1>
+                <p>{this.state.story}</p>
+                <WordInput onEnter={this.enter} />
+            </div>
+        );
+    }
+}
+
+export default ContinueStory;

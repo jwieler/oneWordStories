@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import NavButton from './NavButton';
 import ViewStories from './ViewStories';
 import BeginStory from './BeginStory';
+import ContinueStory from './ContinueStory';
 
 class NavButtons extends React.Component {
     constructor(props) {
@@ -21,7 +22,10 @@ class NavButtons extends React.Component {
     }
 
     continueStory() {
-        console.log("Continue Story");
+        render(
+            <ContinueStory />,
+            document.getElementById('app')
+        );
     }
 
     viewStories() {
