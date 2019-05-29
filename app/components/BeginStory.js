@@ -1,9 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import NavButton from './NavButton';
-import NavButtons from './NavButtons';
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
-
+import HomePage from './HomePage';
+import collectionRef from '../../app';
 
 class BeginStory extends React.Component {
     constructor(props) {
@@ -17,8 +16,7 @@ class BeginStory extends React.Component {
         this.keyUpHandler = this.keyUpHandler.bind(this);
         this.deleteLastWord = this.deleteLastWord.bind(this);
         this.pastePrevent = this.pastePrevent.bind(this);
-        this.navButtons = this.navButtons.bind(this);
-        this.connect = this.connect.bind(this);
+        this.back = this.back.bind(this);
     }
 
     pastePrevent(e) {
@@ -27,11 +25,17 @@ class BeginStory extends React.Component {
 
     enter() {
         var input = document.getElementById('inputField').value;
-        this.setState ({
-            numWords: this.state.numWords + 1,
-            word: this.state.word += input + " "
+        var title = document.getElementById('titleField').value;
+
+        var date = Date.now();
+        collectionRef.add({
+            title: title,
+            story: input,
+            lastUpdatedAt: date,
         });
-        document.getElementById('inputField').value = null;
+        document.getElementById('inputField').disabled = true;
+        document.getElementById('titleField').disabled = true;
+        document.getElementById('submit').disabled = true;
     }
 
     keyDownHandler(e) { 
@@ -46,7 +50,7 @@ class BeginStory extends React.Component {
                 numWords: this.state.numWords + 1,
                 word: this.state.word += input + ' ',
             });  
-            document.getElementById('inputField').value = "";
+            document.getElementById('inputField').disabled = true;
         }
         else if (e.key == ' ' && !isAllWhitespace(document.getElementById("inputField").value))
         {
@@ -55,8 +59,7 @@ class BeginStory extends React.Component {
                 numWords: this.state.numWords + 1,
                 word: this.state.word += input + ' ',
             });  
-            document.getElementById('inputField').value = "";
-            
+            document.getElementById('inputField').disabled = true;
         }
     }
 
@@ -80,15 +83,11 @@ class BeginStory extends React.Component {
         });
     }
 
-    navButtons() {
+    back() {
         render(
-            <NavButtons />,
+            <HomePage />,
             document.getElementById('app')
         );
-    }
-
-    connect() {
-
     }
 
     render() {
@@ -96,15 +95,15 @@ class BeginStory extends React.Component {
         text = this.state.word;
         return (
             <div>
-               
+                <input id="titleField" type="text" placeholder="Enter the title of the story..." ></input>
+                <hr></hr>
                 <div id="story" className="storyText">{text}</div>
                 <input id="inputField" type="text" placeholder="Type in a word..." onKeyDown={this.keyDownHandler} onKeyUp={this.keyUpHandler} onPaste={this.pastePrevent}></input>
-                <NavButton onClick={this.enter} text="Enter"/>
                 <br></br>
-                <NavButton onClick={this.deleteLastWord} text="Delete the previous word"/>
+                <button id="submit" onClick={this.enter}>Submit</button>
+                <br></br>
                 <hr></hr>
-                <NavButton onClick={this.navButtons} text="Back"/>
-                <NavButton onClick={this.connect} text="connect"/>
+                <NavButton onClick={this.back} text="Back"/>
             </div>
         );
     }
