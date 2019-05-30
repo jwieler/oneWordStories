@@ -1,27 +1,8 @@
 import React from 'react';
-// import * as Snoowrap from 'snoowrap';
 import { render } from 'react-dom';
 import HomePage from './HomePage';
 import StoryList from './StoryList';
 import NavButton from './NavButton';
-
-/* Bot code */
-// const bot = new Snoowrap({
-//     clientId: "uBEtpaz683p79g",
-//     clientSecret: "jUzoKHVuYZFQABtmClG4yPIsAGE",
-//     username: "oneWordStoryBot68",
-//     password: "Cljjcfkp0611"
-// });
-
-// bot.config({
-//     requestDelay: 2000
-// });
-
-// bot.submitSelfpost({
-//     subredditName: "oneWordStoriesApp",
-//     title: "Testing...",
-//     test: "1 2 3..."
-// }).then(console.log);
 
 class ViewStories extends React.Component {
     constructor(props) {
@@ -46,14 +27,20 @@ class ViewStories extends React.Component {
                 before: beforeStr,
                 after: afterStr
             },
-            success: function(data) {
+            success: function (data) {
                 this.setState({
                     posts: data.data.children,
                     before: data.data.before,
                     after: data.data.after
                 });
+
+                var accountInfo = JSON.parse(localStorage.getItem("oneWordStoriesAccessToken"));
+
+                if (accountInfo == null || Math.floor(Date.now() / 1000) - accountInfo.timeSet >= 3600) {
+                    $(':button[class="vote"]').prop('disabled', true);
+                }
             }.bind(this),
-            fail: function(e) {
+            fail: function (e) {
                 console.log(e);
             }
         });
@@ -67,19 +54,7 @@ class ViewStories extends React.Component {
     }
 
     componentDidMount() {
-        this.apiRequest("", "");
-
-        $.ajax({
-            url: "http://www.reddit.com/api/submit",
-            type: "post",
-            data: {
-                title: "Testing",
-                text: "1 2 3...",
-                sr: "oneWordStoriesApp",
-                kind: "self",
-                uh: ""
-            }
-        });
+        this.apiRequest("", "")
     }
 
     render() {

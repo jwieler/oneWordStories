@@ -5,6 +5,7 @@ class CompleteStory extends React.Component {
         return (
             <div>
                 <h3>{this.props.story.data.title}</h3>
+                <p>{this.props.story.data.selftext}</p>
             </div>
         );
     }

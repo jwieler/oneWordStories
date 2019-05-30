@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import NavButton from './NavButton';
 import WordInput from './WordInput';
 import HomePage from './HomePage';
+import bot from './RedditBot';
 import collectionRef from '../../app';
 
 class ContinueStory extends React.Component {
@@ -18,6 +19,7 @@ class ContinueStory extends React.Component {
 
         this.enter = this.enter.bind(this);
         this.back = this.back.bind(this);
+        this.endStory = this.endStory.bind(this);
     }
 
     componentDidMount() {
@@ -49,6 +51,19 @@ class ContinueStory extends React.Component {
         );
     }
 
+    endStory() {
+        collectionRef.doc(this.state.id).delete();
+
+        bot.submitSelfpost({
+            subredditName: "oneWordStoriesApp",
+            title: this.state.title,
+            text: this.state.story
+        }).then(render(
+            <ContinueStory />,
+            document.getElementById('app')
+        ));
+    }
+
     render() {
         return (
             <div>
@@ -56,6 +71,7 @@ class ContinueStory extends React.Component {
                 <h1>{this.state.title}</h1>
                 <p>{this.state.story}</p>
                 <WordInput onEnter={this.enter} />
+                <button id="endStory" onClick={this.endStory}>End Story</button>
             </div>
         );
     }
