@@ -26,10 +26,15 @@ class HomePage extends React.Component {
                         redirect_uri: "http://localhost:8080/"
                     },
                     success: function (data) {
-                        localStorage.setItem("oneWordStoriesAccessToken", JSON.stringify({
-                            accessToken: data.access_token,
-                            timeSet: Math.floor(Date.now() / 1000)
-                        }));
+                        if (data != null && data.error == null && (localStorage.getItem("oneWordStoriesAccessToken") == null ||
+                            JSON.parse(localStorage.getItem("oneWordStoriesAccessToken")).accessToken !=
+                            data.access_token)) {
+
+                            localStorage.setItem("oneWordStoriesAccessToken", JSON.stringify({
+                                accessToken: data.access_token,
+                                timeSet: Math.floor(Date.now() / 1000)
+                            }));
+                        }
                     },
                     fail: function (e) {
                         console.log(e);
