@@ -39,9 +39,25 @@ class ContinueStory extends React.Component {
         });
     }
 
-    enter(word) {
-        console.log(word);
+    enter() {
+        var word = document.getElementById('inputField').value;
+        var newStory = this.state.story + " " + word;
+        console.log(newStory);
+        collectionRef.doc(this.state.id).set({
+            story: newStory,
+            title: this.state.title,
+            lastUpdatedAt: Date.now()
+        });
         document.getElementById('inputField').value = null;
+        document.getElementById('inputField').disabled = true;
+        document.getElementById('story').innerHTML = newStory;
+      /*  this.setState({
+            id: this.state.id,
+            story: newStory,
+            title: this.state.story,
+            lastUpdatedAt: Date.now()
+        });
+        */
     }
 
     back() {
@@ -69,7 +85,7 @@ class ContinueStory extends React.Component {
             <div>
                 <NavButton onClick={this.back} text="Back" />
                 <h1>{this.state.title}</h1>
-                <p>{this.state.story}</p>
+                <p id="story">{this.state.story}</p>
                 <WordInput onEnter={this.enter} />
                 <button id="endStory" onClick={this.endStory}>End Story</button>
             </div>
