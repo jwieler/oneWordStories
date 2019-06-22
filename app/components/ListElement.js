@@ -92,12 +92,32 @@ class ListElement extends React.Component {
     }
 
     render() {
+        var yeahButton = <img src="#"/>;
+        var unyeahButton = <img src="#"/>;
+
+        if (this.props.story.data.likes === null) {
+            yeahButton = <img id={this.props.story.data.id + "up"} className="vote" width="20" onClick={this.yeah} src="../../images/up-arrow-disabled.svg"/>;
+            unyeahButton = <img id={this.props.story.data.id + "down"} className="vote" onClick={this.unyeah} width="20" src="../../images/down-arrow-disabled.svg"/>;
+        }
+        else if (this.state.yeahed) {
+            yeahButton = <img id={this.props.story.data.id + "up"} className="vote" onClick={this.yeah} width="20" src="../../images/up-arrow-clicked.svg"/>;
+            unyeahButton = <img id={this.props.story.data.id + "down"} className="vote" onClick={this.unyeah} width="20" src="../../images/down-arrow-unclicked.svg"/>;
+        }
+        else if (this.state.unyeahed) {
+            yeahButton = <img id={this.props.story.data.id + "up"} className="vote" onClick={this.yeah} width="20" src="../../images/up-arrow-unclicked.svg"/>;
+            unyeahButton = <img id={this.props.story.data.id + "down"} className="vote" onClick={this.unyeah} width="20" src="../../images/down-arrow-clicked.svg"/>;
+        }
+        else {
+            yeahButton = <img id={this.props.story.data.id + "up"} className="vote" onClick={this.yeah} width="20" src="../../images/up-arrow-unclicked.svg"/>;
+            unyeahButton = <img id={this.props.story.data.id + "down"} className="vote" onClick={this.unyeah} width="20" src="../../images/down-arrow-unclicked.svg"/>;
+        }
+
         return (
             <li>
                 <CompleteStory story={this.props.story} />
-                <button id={this.props.story.data.id + "up"} className="vote" onClick={this.yeah}>Yeah</button>
+                {yeahButton}
                 <p id={this.props.story.data.id + "score"}>{this.props.story.data.score}</p>
-                <button id={this.props.story.data.id + "down"} className="vote" onClick={this.unyeah}>Unyeah</button>
+                {unyeahButton}
             </li>
         );
     }
