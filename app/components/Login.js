@@ -21,7 +21,11 @@ class Login extends React.Component {
     }
 
     render() {
-        return <button onClick={this.OAuth}>Login</button>;
+        return <button style={{
+            position: "absolute",
+            top: "20px",
+            right: "10px"
+        }} onClick={this.OAuth}>Login</button>;
     }
 }
 

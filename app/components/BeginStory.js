@@ -4,6 +4,7 @@ import NavButton from './NavButton';
 import HomePage from './HomePage';
 import WordInput from './WordInput';
 import collectionRef from '../../app';
+import Header from './Header';
 
 class BeginStory extends React.Component {
     constructor(props) {
@@ -45,14 +46,17 @@ class BeginStory extends React.Component {
         text = this.state.word;
         return (
             <div>
-                <input id="titleField" type="text" placeholder="Enter the title of the story..." ></input>
-                <div id="story" className="storyText">{text}</div>
-                <WordInput onEnter={this.enter} />
-                <button id="submit" onClick={this.enter}>Enter</button>
-                <br></br>
-                <NavButton onClick={this.deleteLastWord} text="Delete the previous word"/>
-                <hr></hr>
-                <NavButton onClick={this.back} text="Back"/>
+                <Header homePage={false}/>
+                <div  style={{
+                     marginTop: "64px"
+                }}>
+                    <input id="titleField" type="text" placeholder="Enter the title of the story..." ></input>
+                    <div id="story" className="storyText">{text}</div>
+                    <WordInput onEnter={this.enter} />
+                    <button id="submit" onClick={this.enter}>Enter</button>
+                    <br></br>
+                    <NavButton onClick={this.deleteLastWord} text="Delete the previous word"/>
+                </div>
             </div>
         );
     }

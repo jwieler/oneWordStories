@@ -5,7 +5,7 @@ class CompleteStory extends React.Component {
         return (
             <div
             style = {{
-                fontFamily: "Montserrat",
+                fontFamily: "'Montserrat', sans-serif"
             }}>
                 <h3 style = {{
                     color: "whitesmoke",

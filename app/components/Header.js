@@ -65,11 +65,24 @@ class Header extends React.Component {
     }
 
     render() {
-        var loginButton = !this.state.loggedIn ? <Login /> : <h2 style={{color: "white"}}>{this.state.username}</h2>;
+        var loginButton = !this.state.loggedIn ? <Login /> : <h2 style={{
+            color: "whitesmoke",
+            position: "absolute",
+            top: "16px",
+            right: "10px",
+            fontFamily: "'Montserrat', sans-serif",
+            fontSize: "1.5rem"
+        }}>{"Logged in as: " + this.state.username}</h2>;
         var backButton = "";
 
         if (!this.props.homePage) {
-            var backButton = <button onClick={this.back}>Back</button>
+            var backButton = <img style={{
+                left: "0",
+                display: "inline",
+                cursor: "pointer",
+                margin: "12px",
+                verticalAlign: "middle"
+            }} src="../../images/back-arrow.svg" onClick={this.back} height="40px" />
         }
         return (
             <header style={{
@@ -83,9 +96,13 @@ class Header extends React.Component {
                 zIndex: "3",
             }}>
                 {backButton}
-                <h1 style={{
-                    color: "white"
-                }}>One Word Stories</h1>
+                <div style={{display:"inline-block", verticalAlign: "middle"}}>
+                    <h1 style={{
+                        fontSize: "2rem",
+                        lineHeight: "64px",
+                        fontFamily: "'Montserrat', sans-serif"
+                    }}>One Word Stories</h1>
+                </div>
                 {loginButton}
             </header>
         );

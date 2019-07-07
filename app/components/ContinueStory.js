@@ -5,6 +5,7 @@ import WordInput from './WordInput';
 import HomePage from './HomePage';
 import bot from './RedditBot';
 import collectionRef from '../../app';
+import Header from './Header';
 
 class ContinueStory extends React.Component {
     constructor(props) {
@@ -83,11 +84,15 @@ class ContinueStory extends React.Component {
     render() {
         return (
             <div>
-                <NavButton onClick={this.back} text="Back" />
-                <h1>{this.state.title}</h1>
-                <p id="story">{this.state.story}</p>
-                <WordInput onEnter={this.enter} />
-                <button id="endStory" onClick={this.endStory}>End Story</button>
+                <Header homePage={false}/>
+                <div  style={{
+                     marginTop: "64px"
+                }}>
+                    <h1>{this.state.title}</h1>
+                    <p id="story">{this.state.story}</p>
+                    <WordInput onEnter={this.enter} />
+                    <button id="endStory" onClick={this.endStory}>End Story</button>
+                </div>
             </div>
         );
     }
