@@ -112,17 +112,28 @@ class HomePage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style = {{
+                textAlign: "center",
+            }}>
                 <Header homePage={true} />
                 <div style={{
-                    marginTop: "64px"
+                    marginTop: "64px",
+                    backgroundColor: "#1e1e1e",
+                    textAlign: "center",
                 }}>
+                    <div style = {{
+                        display: "inline-block",
+                        textAlign: "left",
+                        width: "66%",
+                        padding: "10px",
+                    }}>
                     <NavButtons />
                     <select id="sort" onChange={this.changeSort}>
                         <option value="hot">Hot</option>
                         <option value="top">Top</option>
                     </select>
                     <StoryList children={this.state.posts} />
+                </div>
                 </div>
             </div>
         );

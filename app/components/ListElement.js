@@ -113,10 +113,22 @@ class ListElement extends React.Component {
         }
 
         return (
-            <li>
+            <li style = {{
+                borderStyle: "solid",
+                borderWidth: "5px",
+                borderRadius: "10px",
+                marginBottom: "5px",
+                marginTop: "10px",
+                padding: "10px",
+            }}>
                 <CompleteStory story={this.props.story} />
                 {yeahButton}
-                <p id={this.props.story.data.id + "score"}>{this.props.story.data.score}</p>
+                <p id={this.props.story.data.id + "score"}
+                style = {{
+                    color: "#BABABA",
+                    marginTop: "5px",
+                    marginBottom: "5px",
+                }}>{this.props.story.data.score}</p>
                 {unyeahButton}
             </li>
         );
