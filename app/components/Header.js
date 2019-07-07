@@ -79,6 +79,7 @@ class Header extends React.Component {
             var backButton = <img style={{
                 left: "0",
                 display: "inline",
+                position: "absolute",
                 cursor: "pointer",
                 margin: "12px",
                 verticalAlign: "middle"
@@ -86,7 +87,7 @@ class Header extends React.Component {
         }
         return (
             <header style={{
-                backgroundColor: "purple",
+                backgroundColor: "#006894",
                 color: "whitesmoke",
                 height: "64px",
                 top: "0",

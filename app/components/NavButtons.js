@@ -28,7 +28,10 @@ class NavButtons extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style = {{ 
+                textAlign: "center",
+                padding: "10px",
+            }}>
                 <NavButton onClick={this.beginStory} text="Begin a Story"/>
                 <NavButton onClick={this.continueStory} text="Continue a Story"/>
             </div>

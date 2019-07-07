@@ -128,9 +128,12 @@ class HomePage extends React.Component {
                         padding: "10px",
                     }}>
                     <NavButtons />
-                    <select id="sort" onChange={this.changeSort}>
-                        <option value="hot">Hot</option>
-                        <option value="top">Top</option>
+                    <select style = {{
+                        backgroundColor: "transparent",
+                        color: "whitesmoke",
+                    }} id="sort" onChange={this.changeSort}>
+                        <option style = {{color: "black", backgroundColor: "transparent"}} value="hot">Hot</option>
+                        <option style = {{color: "black", backgroundColor: "transparent"}} value="top">Top</option>
                     </select>
                     <StoryList children={this.state.posts} />
                 </div>

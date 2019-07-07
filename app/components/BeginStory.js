@@ -24,14 +24,22 @@ class BeginStory extends React.Component {
 
         var date = Date.now();
 
-        collectionRef.add({
-            title: title,
-            story: document.getElementById('inputField').value,
-            lastUpdatedAt: date
-        });
-        document.getElementById('inputField').disabled = true;
-        document.getElementById('titleField').disabled = true;
-        document.getElementById('submit').disabled = true;
+        if(document.getElementById('inputField').value.length < 1 || title.length < 1)
+        {
+            alert("Neither field can be empty, please try again.");
+        }
+        else
+        {
+            collectionRef.add({
+                title: title,
+                story: document.getElementById('inputField').value,
+                lastUpdatedAt: date
+            });
+            document.getElementById('inputField').disabled = true;
+            document.getElementById('titleField').disabled = true;
+            document.getElementById('submit').disabled = true;s
+        }
+        
     }
 
     back() {
@@ -45,17 +53,32 @@ class BeginStory extends React.Component {
         var text = '';
         text = this.state.word;
         return (
-            <div>
+            <div style = {{
+                textAlign: "center"
+            }}>
                 <Header homePage={false}/>
                 <div  style={{
-                     marginTop: "64px"
+                     marginTop: "64px",
+                     textAlign: "center",
+                     padding: "10px",
                 }}>
-                    <input id="titleField" type="text" placeholder="Enter the title of the story..." ></input>
+                    <div style = {{
+                        display: "inline-block",
+                        textAlign: "left",
+                        padding: "10px",
+                    }}>
+                    <p id="storyBegin" style = {{
+                        color: "whitesmoke",
+                        fontSize: "2rem",
+                        padding: "10px",
+                    }}>Begin a Story!</p>
+                    <input style = {{marginBottom: "5px", height: "30px", fontSize: "100%"}} id="titleField" type="text" placeholder="Enter the title of the story..." ></input>
                     <div id="story" className="storyText">{text}</div>
                     <WordInput onEnter={this.enter} />
-                    <button id="submit" onClick={this.enter}>Enter</button>
+                    <button style = {{marginBottom: "5px", height: "30px", backgroundColor: "transparent", color: "whitesmoke"}} id="submit" onClick={this.enter}>Enter</button>
                     <br></br>
                     <NavButton onClick={this.deleteLastWord} text="Delete the previous word"/>
+                </div>
                 </div>
             </div>
         );
