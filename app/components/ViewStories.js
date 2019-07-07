@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import HomePage from './HomePage';
 import StoryList from './StoryList';
 import NavButton from './NavButton';
+import Header from './Header';
 
 class ViewStories extends React.Component {
     constructor(props) {
@@ -79,6 +80,7 @@ class ViewStories extends React.Component {
     render() {
         return (
             <div>
+                <Header />
                 <NavButton onClick={this.back} text="Back" />
                 <select id="sort" onChange={this.changeSort}>
                     <option value="hot">Hot</option>
