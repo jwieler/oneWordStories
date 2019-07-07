@@ -7,12 +7,23 @@ class ListElement extends React.Component {
 
         this.yeah = this.yeah.bind(this);
         this.unyeah = this.unyeah.bind(this);
+        this.loggedIn = this.loggedIn.bind(this);
         this.vote = this.vote.bind(this);
 
         this.state = {
-            yeahed: this.props.story.data.likes == null ? false : this.props.story.data.likes,
-            unyeahed: this.props.story.data.likes == null ? false : !this.props.story.data.likes
+            yeahed: this.props.story.data.likes === null ? false : this.props.story.data.likes,
+            unyeahed: this.props.story.data.likes === null ? false : !this.props.story.data.likes
         }
+    }
+
+    loggedIn() {
+        var accountInfo = JSON.parse(localStorage.getItem("oneWordStoriesAccessToken"));
+        
+        if (accountInfo == null || Math.floor(Date.now() / 1000) - accountInfo.timeSet >= 3600) {
+            return false;
+        }
+
+        return true
     }
 
     vote(direction) {
@@ -27,8 +38,25 @@ class ListElement extends React.Component {
                 dir: direction.toString()
             },
             success: function(data) {
-                console.log(data);
-            },
+                if (direction == 1) {
+                    this.setState({
+                        yeahed: true,
+                        unyeahed: false
+                    });
+                }
+                else if (direction == -1) {
+                    this.setState({
+                        yeahed: false,
+                        unyeahed: true
+                    });
+                }
+                else {
+                    this.setState({
+                        yeahed: false,
+                        unyeahed: false
+                    });
+                }
+            }.bind(this),
             fail: function(e) {
                 console.log(e);
             }
@@ -44,20 +72,10 @@ class ListElement extends React.Component {
                 document.getElementById(this.props.story.data.id + "score").innerText = parseInt(document.getElementById(this.props.story.data.id + "score").innerText) + 1;
             }
 
-            this.setState({
-                yeahed: true,
-                unyeahed: false
-            });
-
             this.vote(1);
         }
         else {
             document.getElementById(this.props.story.data.id + "score").innerText = parseInt(document.getElementById(this.props.story.data.id + "score").innerText) - 1;
-
-            this.setState({
-                yeahed: false,
-                unyeahed: false
-            });
 
             this.vote(0);
         }
@@ -72,20 +90,10 @@ class ListElement extends React.Component {
                 document.getElementById(this.props.story.data.id + "score").innerText = parseInt(document.getElementById(this.props.story.data.id + "score").innerText) - 1;
             }
 
-            this.setState({
-                yeahed: false,
-                unyeahed: true
-            });
-
             this.vote(-1);
         }
         else {
             document.getElementById(this.props.story.data.id + "score").innerText = parseInt(document.getElementById(this.props.story.data.id + "score").innerText) + 1;
-
-            this.setState({
-                yeahed: false,
-                unyeahed: false
-            });
 
             this.vote(0);
         }
@@ -95,7 +103,7 @@ class ListElement extends React.Component {
         var yeahButton = <img src="#"/>;
         var unyeahButton = <img src="#"/>;
 
-        if (this.props.story.data.likes === null) {
+        if (!this.loggedIn()) {
             yeahButton = <img id={this.props.story.data.id + "up"} className="vote" width="20" onClick={this.yeah} src="../../images/up-arrow-disabled.svg"/>;
             unyeahButton = <img id={this.props.story.data.id + "down"} className="vote" onClick={this.unyeah} width="20" src="../../images/down-arrow-disabled.svg"/>;
         }
