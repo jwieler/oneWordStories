@@ -70,7 +70,6 @@ class Header extends React.Component {
             position: "absolute",
             top: "16px",
             right: "10px",
-            fontFamily: "'Montserrat', sans-serif",
             fontSize: "1.5rem"
         }}>{"Logged in as: " + this.state.username}</h2>;
         var backButton = "";

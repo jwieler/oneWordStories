@@ -24,12 +24,10 @@ class BeginStory extends React.Component {
 
         var date = Date.now();
 
-        if(document.getElementById('inputField').value.length < 1 || title.length < 1)
-        {
+        if (document.getElementById('inputField').value.length < 1 || title.length < 1) {
             alert("Neither field can be empty, please try again.");
         }
-        else
-        {
+        else {
             collectionRef.add({
                 title: title,
                 story: document.getElementById('inputField').value,
@@ -37,9 +35,9 @@ class BeginStory extends React.Component {
             });
             document.getElementById('inputField').disabled = true;
             document.getElementById('titleField').disabled = true;
-            document.getElementById('submit').disabled = true;s
+            document.getElementById('submit').disabled = true; s
         }
-        
+
     }
 
     back() {
@@ -53,52 +51,51 @@ class BeginStory extends React.Component {
         var text = '';
         text = this.state.word;
         return (
-            <div style = {{
+            <div style={{
                 textAlign: "center"
             }}>
-                <Header homePage={false}/>
-                <div  style={{
-                     marginTop: "64px",
-                     textAlign: "center",
-                     padding: "10px",
+                <Header homePage={false} />
+                <div style={{
+                    marginTop: "64px",
+                    textAlign: "center",
+                    padding: "10px",
                 }}>
-                    <div style = {{
+                    <div style={{
                         display: "inline-block",
                         textAlign: "left",
                         padding: "10px",
                     }}>
-                    <p id="storyBegin" style = {{
-                        color: "whitesmoke",
-                        fontSize: "2rem",
-                        padding: "10px",
-                    }}>Begin a Story!</p>
-                    <input style = {{marginBottom: "5px", height: "30px", fontSize: "100%"}} id="titleField" type="text" placeholder="Enter the title of the story..." ></input>
-                    <div id="story" className="storyText">{text}</div>
-                    <WordInput onEnter={this.enter} />
-                    <button style = {{marginBottom: "5px", height: "30px", backgroundColor: "transparent", color: "whitesmoke"}} id="submit" onClick={this.enter}>Enter</button>
-                    <br></br>
-                    <NavButton onClick={this.deleteLastWord} text="Delete the previous word"/>
-                </div>
+                        <p id="storyBegin" style={{
+                            color: "whitesmoke",
+                            fontSize: "2rem",
+                            padding: "10px",
+                        }}>Begin a Story!</p>
+                        <input style={{
+                            marginBottom: "5px",
+                            height: "30px",
+                            fontSize: "100%"
+                        }} id="titleField" type="text" placeholder="Enter the title of the story..." autoComplete="off"></input>
+                        <div id="story" className="storyText">{text}</div>
+                        <WordInput onEnter={this.enter} />
+                        <button id="submit" onClick={this.enter}>Enter</button>
+                    </div>
                 </div>
             </div>
         );
     }
 }
 
-function isAllWhitespace(word) 
-{
-    for(var i = 0; i < word.length; i++)
-    {
+function isAllWhitespace(word) {
+    for (var i = 0; i < word.length; i++) {
         var myCharCode = word.charCodeAt(i);
-    
-        if(((myCharCode >  8) && (myCharCode < 14)) ||
-            (myCharCode == 32))
-        {
+
+        if (((myCharCode > 8) && (myCharCode < 14)) ||
+            (myCharCode == 32)) {
             return true;
         }
     }
-   
-      return false;
+
+    return false;
 }
 
 

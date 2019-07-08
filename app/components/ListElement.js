@@ -11,15 +11,21 @@ class ListElement extends React.Component {
         this.vote = this.vote.bind(this);
 
         this.state = {
-            yeahed: this.props.story.data.likes === null ? false : this.props.story.data.likes,
-            unyeahed: this.props.story.data.likes === null ? false : !this.props.story.data.likes
+            yeahed: !(this.props.story.data.likes === null || this.props.story.data.likes != 1),
+            unyeahed: !(this.props.story.data.likes === null || this.props.story.data.likes != 0)
         }
     }
 
     loggedIn() {
-        var accountInfo = JSON.parse(localStorage.getItem("oneWordStoriesAccessToken"));
+        var localStorageItem = localStorage.getItem("oneWordStoriesAccessToken");
+
+        if (localStorageItem === null) {
+            return false;
+        }
+
+        var accountInfo = JSON.parse(localStorageItem);
         
-        if (accountInfo == null || Math.floor(Date.now() / 1000) - accountInfo.timeSet >= 3600) {
+        if (accountInfo === null || Math.floor(Date.now() / 1000) - accountInfo.timeSet >= 3600) {
             return false;
         }
 
@@ -103,21 +109,34 @@ class ListElement extends React.Component {
         var yeahButton = <img src="#"/>;
         var unyeahButton = <img src="#"/>;
 
+        var styleUp = {
+            display: "inline-block",
+            margin: "5px",
+            verticalAlign: "middle"
+        }
+
+        var styleDown = {
+            display: "inline-block",
+            margin: "5px",
+            verticalAlign: "middle",
+            transform: "rotate(180)"
+        }
+
         if (!this.loggedIn()) {
-            yeahButton = <img id={this.props.story.data.id + "up"} className="vote" width="20" onClick={this.yeah} src="../../images/up-arrow-disabled.svg"/>;
-            unyeahButton = <img id={this.props.story.data.id + "down"} className="vote" onClick={this.unyeah} width="20" src="../../images/down-arrow-disabled.svg"/>;
+            yeahButton = <img style={styleUp} id={this.props.story.data.id + "up"} className="vote" height="20" src="../../images/up-arrow-disabled.svg"/>;
+            unyeahButton = <img style={styleDown} id={this.props.story.data.id + "down"} className="vote" height="20" src="../../images/down-arrow-disabled.svg"/>;
         }
         else if (this.state.yeahed) {
-            yeahButton = <img id={this.props.story.data.id + "up"} className="vote" onClick={this.yeah} width="20" src="../../images/up-arrow-clicked.svg"/>;
-            unyeahButton = <img id={this.props.story.data.id + "down"} className="vote" onClick={this.unyeah} width="20" src="../../images/down-arrow-unclicked.svg"/>;
+            yeahButton = <img style={styleUp} id={this.props.story.data.id + "up"} className="vote" onClick={this.yeah} width="20" src="../../images/up-arrow-clicked.svg"/>;
+            unyeahButton = <img style={styleDown} id={this.props.story.data.id + "down"} className="vote" onClick={this.unyeah} width="20" src="../../images/down-arrow-unclicked.svg"/>;
         }
         else if (this.state.unyeahed) {
-            yeahButton = <img id={this.props.story.data.id + "up"} className="vote" onClick={this.yeah} width="20" src="../../images/up-arrow-unclicked.svg"/>;
-            unyeahButton = <img id={this.props.story.data.id + "down"} className="vote" onClick={this.unyeah} width="20" src="../../images/down-arrow-clicked.svg"/>;
+            yeahButton = <img style={styleUp} id={this.props.story.data.id + "up"} className="vote" onClick={this.yeah} width="20" src="../../images/up-arrow-unclicked.svg"/>;
+            unyeahButton = <img style={styleDown} id={this.props.story.data.id + "down"} className="vote" onClick={this.unyeah} width="20" src="../../images/down-arrow-clicked.svg"/>;
         }
         else {
-            yeahButton = <img id={this.props.story.data.id + "up"} className="vote" onClick={this.yeah} width="20" src="../../images/up-arrow-unclicked.svg"/>;
-            unyeahButton = <img id={this.props.story.data.id + "down"} className="vote" onClick={this.unyeah} width="20" src="../../images/down-arrow-unclicked.svg"/>;
+            yeahButton = <img style={styleUp} id={this.props.story.data.id + "up"} className="vote" onClick={this.yeah} width="20" src="../../images/up-arrow-unclicked.svg"/>;
+            unyeahButton = <img style={styleDown} id={this.props.story.data.id + "down"} className="vote" onClick={this.unyeah} width="20" src="../../images/down-arrow-unclicked.svg"/>;
         }
 
         return (
@@ -130,14 +149,18 @@ class ListElement extends React.Component {
                 padding: "10px",
             }}>
                 <CompleteStory story={this.props.story} />
-                {yeahButton}
-                <p id={this.props.story.data.id + "score"}
-                style = {{
-                    color: "#BABABA",
-                    marginTop: "5px",
-                    marginBottom: "5px",
-                }}>{this.props.story.data.score}</p>
-                {unyeahButton}
+                <div>
+                    {yeahButton}
+                    <p id={this.props.story.data.id + "score"}
+                    style = {{
+                        color: "#BABABA",
+                        display: "inline-block",
+                        marginTop: "5px",
+                        marginBottom: "5px",
+                        verticalAlign: "middle"
+                    }}>{this.props.story.data.score}</p>
+                    {unyeahButton}
+                </div>
             </li>
         );
     }

@@ -83,13 +83,22 @@ class ContinueStory extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{
+                textAlign: "center"
+            }}>
                 <Header homePage={false}/>
-                <div  style={{
+                <div style={{
                      marginTop: "64px"
                 }}>
-                    <h1>{this.state.title}</h1>
-                    <p id="story">{this.state.story}</p>
+                    <h1 style = {{
+                        color: "whitesmoke",
+                        fontSize: "2em",
+                        padding: "10px",
+                    }}>{this.state.title}</h1>
+                    <p style = {{
+                        color: "#BABABA",
+                        marginBottom: "10px"
+                    }} id="story">{this.state.story}</p>
                     <WordInput onEnter={this.enter} />
                     <button id="endStory" onClick={this.endStory}>End Story</button>
                 </div>

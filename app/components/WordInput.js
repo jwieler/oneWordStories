@@ -34,7 +34,7 @@ class WordInput extends React.Component {
     render() {
         return (
             <div style = {{fontFamily: "Montseraat", marginBottom: "5px"}}>
-                <input style = {{height: "30px", fontSize: "100%"}} id="inputField" type="text" placeholder="Type in a word..." onKeyDown={this.keyDownHandler} onKeyUp={this.keyUpHandler} onPaste={this.pastePrevent}></input>
+                <input style = {{height: "30px", fontSize: "100%"}} id="inputField" type="text" placeholder="Type in a word..." onKeyDown={this.keyDownHandler} autoComplete="off" onKeyUp={this.keyUpHandler} onPaste={this.pastePrevent}></input>
             </div>
         );
     }

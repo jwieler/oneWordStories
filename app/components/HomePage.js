@@ -118,7 +118,6 @@ class HomePage extends React.Component {
                 <Header homePage={true} />
                 <div style={{
                     marginTop: "64px",
-                    backgroundColor: "#1e1e1e",
                     textAlign: "center",
                 }}>
                     <div style = {{

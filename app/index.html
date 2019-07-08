@@ -37,6 +37,43 @@
                 font: inherit;
             }
 
+            body {
+                background-color: #1e1e1e;
+                font-family: 'Montserrat', sans-serif;
+            }
+
+            ::placeholder {
+                color: whitesmoke;
+            }
+
+            input[type=text] {
+                border: none;
+                background: grey;
+                font-size: 2rem;
+                line-height: 2.5rem;
+                margin: 5px;
+                padding: 5px;
+                border-bottom: 4px solid rgb(65, 65, 65);
+                color: whitesmoke;
+                transition: border-bottom 0.25s;
+                outline: none;
+                max-width: 400px;
+            }
+
+            input[type=text]:focus {
+                border-bottom: 4px solid #006894;
+            }
+
+            button {
+                background-color: #004969;
+                border: none;
+                margin: 0px 10px;
+                font-size: 1.3rem;
+                color: whitesmoke;
+                padding: 10px;
+                border-radius: 3px;
+            }
+
             ol,
             ul {
                 list-style: none;
