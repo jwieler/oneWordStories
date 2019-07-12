@@ -108,6 +108,11 @@ class ListElement extends React.Component {
     render() {
         var yeahButton = <img src="#"/>;
         var unyeahButton = <img src="#"/>;
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        var timestamp = new Date(this.props.story.data.created * 1000);
+        var year = timestamp.getFullYear();
+        var month = months[timestamp.getMonth()];
+        var day = timestamp.getDate();
 
         var styleUp = {
             display: "inline-block",
@@ -127,27 +132,20 @@ class ListElement extends React.Component {
             unyeahButton = <img style={styleDown} id={this.props.story.data.id + "down"} className="vote" height="20" src="../../images/down-arrow-disabled.svg"/>;
         }
         else if (this.state.yeahed) {
-            yeahButton = <img style={styleUp} id={this.props.story.data.id + "up"} className="vote" onClick={this.yeah} width="20" src="../../images/up-arrow-clicked.svg"/>;
-            unyeahButton = <img style={styleDown} id={this.props.story.data.id + "down"} className="vote" onClick={this.unyeah} width="20" src="../../images/down-arrow-unclicked.svg"/>;
+            yeahButton = <img style={styleUp} id={this.props.story.data.id + "up"} className="voteActive" onClick={this.yeah} width="20" src="../../images/up-arrow-clicked.svg"/>;
+            unyeahButton = <img style={styleDown} id={this.props.story.data.id + "down"} className="voteActive" onClick={this.unyeah} width="20" src="../../images/down-arrow-unclicked.svg"/>;
         }
         else if (this.state.unyeahed) {
-            yeahButton = <img style={styleUp} id={this.props.story.data.id + "up"} className="vote" onClick={this.yeah} width="20" src="../../images/up-arrow-unclicked.svg"/>;
-            unyeahButton = <img style={styleDown} id={this.props.story.data.id + "down"} className="vote" onClick={this.unyeah} width="20" src="../../images/down-arrow-clicked.svg"/>;
+            yeahButton = <img style={styleUp} id={this.props.story.data.id + "up"} className="voteActive" onClick={this.yeah} width="20" src="../../images/up-arrow-unclicked.svg"/>;
+            unyeahButton = <img style={styleDown} id={this.props.story.data.id + "down"} className="voteActive" onClick={this.unyeah} width="20" src="../../images/down-arrow-clicked.svg"/>;
         }
         else {
-            yeahButton = <img style={styleUp} id={this.props.story.data.id + "up"} className="vote" onClick={this.yeah} width="20" src="../../images/up-arrow-unclicked.svg"/>;
-            unyeahButton = <img style={styleDown} id={this.props.story.data.id + "down"} className="vote" onClick={this.unyeah} width="20" src="../../images/down-arrow-unclicked.svg"/>;
+            yeahButton = <img style={styleUp} id={this.props.story.data.id + "up"} className="voteActive" onClick={this.yeah} width="20" src="../../images/up-arrow-unclicked.svg"/>;
+            unyeahButton = <img style={styleDown} id={this.props.story.data.id + "down"} className="voteActive" onClick={this.unyeah} width="20" src="../../images/down-arrow-unclicked.svg"/>;
         }
 
         return (
-            <li style = {{
-                borderStyle: "solid",
-                borderWidth: "5px",
-                borderRadius: "10px",
-                marginBottom: "5px",
-                marginTop: "10px",
-                padding: "10px",
-            }}>
+            <li className="story">
                 <CompleteStory story={this.props.story} />
                 <div>
                     {yeahButton}
@@ -160,6 +158,12 @@ class ListElement extends React.Component {
                         verticalAlign: "middle"
                     }}>{this.props.story.data.score}</p>
                     {unyeahButton}
+                    <p style={{
+                        position: "absolute",
+                        right: "10px",
+                        bottom: "10px",
+                        color: "#BABABA"
+                    }}>{month + " " + day + ", " + year}</p>
                 </div>
             </li>
         );

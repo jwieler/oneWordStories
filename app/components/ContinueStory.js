@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-import NavButton from './NavButton';
 import WordInput from './WordInput';
 import HomePage from './HomePage';
 import bot from './RedditBot';
@@ -21,6 +20,7 @@ class ContinueStory extends React.Component {
         this.enter = this.enter.bind(this);
         this.back = this.back.bind(this);
         this.endStory = this.endStory.bind(this);
+        this.nextStory = this.nextStory.bind(this);
     }
 
     componentDidMount() {
@@ -38,6 +38,28 @@ class ContinueStory extends React.Component {
                 lastUpdatedAt: Date.now()
             });
         });
+
+        document.getElementById('endStory').disabled = true;
+    }
+
+    nextStory() {
+        collectionRef.orderBy("lastUpdatedAt").get().then(querySnapshot => {
+            this.setState({
+                id: querySnapshot.docs[0].ref.id,
+                story: querySnapshot.docs[0].data().story,
+                title: querySnapshot.docs[0].data().title,
+                lastUpdatedAt: querySnapshot.docs[0].data().lastUpdatedAt
+            });
+
+            collectionRef.doc(this.state.id).set({
+                story: querySnapshot.docs[0].data().story,
+                title: querySnapshot.docs[0].data().title,
+                lastUpdatedAt: Date.now()
+            });
+        });
+
+        document.getElementById('endStory').disabled = true;
+        document.getElementById('inputField').disabled = false;
     }
 
     enter() {
@@ -52,13 +74,14 @@ class ContinueStory extends React.Component {
         document.getElementById('inputField').value = null;
         document.getElementById('inputField').disabled = true;
         document.getElementById('story').innerHTML = newStory;
-      /*  this.setState({
+        this.setState({
             id: this.state.id,
             story: newStory,
-            title: this.state.story,
+            title: this.state.title,
             lastUpdatedAt: Date.now()
         });
-        */
+
+        document.getElementById('endStory').disabled = false;
     }
 
     back() {
@@ -75,10 +98,9 @@ class ContinueStory extends React.Component {
             subredditName: "oneWordStoriesApp",
             title: this.state.title,
             text: this.state.story
-        }).then(render(
-            <ContinueStory />,
-            document.getElementById('app')
-        ));
+        });
+
+        document.getElementById('endStory').disabled = true;
     }
 
     render() {
@@ -101,6 +123,7 @@ class ContinueStory extends React.Component {
                     }} id="story">{this.state.story}</p>
                     <WordInput onEnter={this.enter} />
                     <button id="endStory" onClick={this.endStory}>End Story</button>
+                    <button id="nextStory" onClick={this.nextStory}>Next Story</button>
                 </div>
             </div>
         );

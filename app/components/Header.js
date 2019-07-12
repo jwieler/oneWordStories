@@ -10,18 +10,7 @@ class Header extends React.Component {
         this.loggedIn = this.loggedIn.bind(this);
         this.getUserName = this.getUserName.bind(this);
         this.back = this.back.bind(this);
-
-        this.state = {
-            loggedIn: this.loggedIn(),
-            homePage: this.props.homePage,
-            username: ""
-        }
-    }
-
-    componentDidMount() {
-        if (this.state.loggedIn) {
-            this.getUserName();
-        }
+        this.username = "";
     }
 
     back() {
@@ -52,26 +41,25 @@ class Header extends React.Component {
             url: requestUrl,
             headers: header,
             success: function (data) {
-                this.setState({
-                    loggedIn: this.loggedIn(),
-                    homePage: this.props.homePage,
-                    username: data.name
-                });
+                this.username = data.name;
             }.bind(this),
             fail: function (e) {
                 console.log(e);
-            }
+            },
+            async: false
         });
+
+        return this.username;
     }
 
     render() {
-        var loginButton = !this.state.loggedIn ? <Login /> : <h2 style={{
+        var loginButton = !this.loggedIn() ? <Login /> : <h2 style={{
             color: "whitesmoke",
             position: "absolute",
             top: "16px",
             right: "10px",
             fontSize: "1.5rem"
-        }}>{"Logged in as: " + this.state.username}</h2>;
+        }}>{"Logged in as: " + this.getUserName()}</h2>;
         var backButton = "";
 
         if (!this.props.homePage) {

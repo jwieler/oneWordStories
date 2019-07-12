@@ -62,7 +62,6 @@ class BeginStory extends React.Component {
                 }}>
                     <div style={{
                         display: "inline-block",
-                        textAlign: "left",
                         padding: "10px",
                     }}>
                         <p id="storyBegin" style={{

@@ -12,6 +12,7 @@ class HomePage extends React.Component {
             posts: [],
             before: "",
             after: "",
+            accessToken: ""
         };
 
         this.getPosts = this.getPosts.bind(this);
@@ -96,7 +97,12 @@ class HomePage extends React.Component {
                                 timeSet: Math.floor(Date.now() / 1000)
                             }));
 
-                            this.forceUpdate();
+                            this.setState({
+                                posts: this.state.posts,
+                                before: this.state.before,
+                                after: this.state.after,
+                                accessToken: data.access_token 
+                            });
                         }
                     }.bind(this),
                     fail: function (e) {
