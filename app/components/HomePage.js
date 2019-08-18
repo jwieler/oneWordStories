@@ -85,7 +85,7 @@ class HomePage extends React.Component {
                     data: {
                         grant_type: "authorization_code",
                         code: urlHash["code"],
-                        redirect_uri: "http://localhost:8080/"
+                        redirect_uri: "https://jwieler.github.io/oneWordStories/"
                     },
                     success: function (data) {
                         if (data != null && data.error == null && (localStorage.getItem("oneWordStoriesAccessToken") === null ||

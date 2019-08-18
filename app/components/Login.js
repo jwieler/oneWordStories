@@ -1,7 +1,7 @@
 import React from 'react';
 
 const clientID = "7q7ZIqo0EGoJPA";
-const redirectURI = "http://localhost:8080/";
+const redirectURI = "https://jwieler.github.io/oneWordStories/";
 const scopes = ["vote", "read", "identity"];
 
 const userURL = "https://www.reddit.com/api/v1/authorize?client_id=" + clientID +
